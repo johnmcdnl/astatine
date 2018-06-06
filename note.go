@@ -2,7 +2,7 @@ package astatine
 
 type Note struct {
 	ID     string  `json:"id"`
-	Fields *Fields `json:"-"`
+	Fields *Fields `json:"fields"`
 }
 
 func NewNote() *Note {

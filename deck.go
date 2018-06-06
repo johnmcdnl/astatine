@@ -1,8 +1,9 @@
 package astatine
 
 type Deck struct {
-	ID    string `json:"id"`
-	*Cards `json:"-"`
+	ID   string `json:"id"`
+	Name string `json:"name"`
+	*Cards      `json:"-"`
 }
 
 func NewDeck() *Deck {

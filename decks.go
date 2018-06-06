@@ -9,12 +9,13 @@ func NewDecks() *Decks {
 	return &Decks{}
 }
 
-func (d *Decks) Add(deck *Deck) {
+func (d *Decks) Add(deck *Deck)*Decks {
 	if d.Exists(deck.ID) {
-		return
+		return d
 	}
 	d.Decks = append(d.Decks, deck)
 	d.SetPrimary(deck)
+	return d
 }
 
 func (d *Decks) Get(id string) *Deck {

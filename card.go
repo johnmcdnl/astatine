@@ -17,8 +17,9 @@ func NewCard() *Card {
 	}
 }
 
-func (c *Card) WithFunc(formatFunc func() error) {
+func (c *Card) WithFunc(formatFunc func() error) *Card {
 	c.formatFunc = formatFunc
+	return c
 }
 
 func (c *Card) Apply() {

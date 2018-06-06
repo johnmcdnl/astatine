@@ -8,15 +8,16 @@ func NewCards() *Cards {
 	return &Cards{}
 }
 
-func (c *Cards) Add(card *Card) {
-	if c.Exists(card.ID){
-		return
+func (c *Cards) Add(card *Card) *Cards {
+	if c.Exists(card.ID) {
+		return c
 	}
 	c.Cards = append(c.Cards, card)
+	return c
 }
 
 func (c *Cards) Get(id string) *Card {
-	if c == nil{
+	if c == nil {
 		return nil
 	}
 	for _, card := range c.Cards {

@@ -8,11 +8,12 @@ func NewFields() *Fields {
 	return &Fields{}
 }
 
-func (f *Fields) Add(field *Field) {
+func (f *Fields) Add(field *Field) *Fields {
 	if f.Exists(field.Key) {
-		return
+		return f
 	}
 	f.Fields = append(f.Fields, field)
+	return f
 }
 
 func (f *Fields) Get(key string) *Field {
