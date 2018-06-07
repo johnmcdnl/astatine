@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"fmt"
 	"github.com/sirupsen/logrus"
+	"github.com/go-chi/chi/middleware"
+	"time"
 )
 
 type API struct {
@@ -21,6 +23,13 @@ func NewAPI(decks *Decks) *API {
 
 func (a *API) NewRouter() {
 	a.Router = chi.NewRouter()
+
+	a.Router.Use(middleware.RequestID)
+	a.Router.Use(middleware.RealIP)
+	a.Router.Use(middleware.Logger)
+	a.Router.Use(middleware.Recoverer)
+	a.Router.Use(middleware.Timeout(5 * time.Second))
+
 	a.Router.Get("/decks", a.GetDecks)
 	a.Router.Get("/decks/{deckID}", a.GetDeck)
 
@@ -28,7 +37,6 @@ func (a *API) NewRouter() {
 	a.Router.Get("/decks/{deckID}/cards/{cardID}", a.GetCard)
 	a.Router.Get("/cards", a.GetCards)
 	a.Router.Get("/cards/{cardID}", a.GetCard)
-
 
 	a.Router.Get("/decks/{deckID}/cards/{cardID}/notes", a.GetNotes)
 	a.Router.Get("/decks/{deckID}/cards/{cardID}/notes/{noteID}", a.GetNote)
@@ -78,7 +86,7 @@ func (a *API) Write(w http.ResponseWriter, i string) {
 func (a *API) getDeck(r *http.Request) *Deck {
 	deckID := chi.URLParam(r, "deckID")
 	logrus.Infoln("(a *API) getDeck", deckID)
-	if deckID == ""{
+	if deckID == "" {
 		return a.Decks.Primary
 	}
 	return a.Decks.Get(deckID)

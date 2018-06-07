@@ -8,7 +8,8 @@ type Deck struct {
 
 func NewDeck() *Deck {
 	return &Deck{
-		ID: newID(),
+		ID:    newID(),
+		Cards: NewCards(),
 	}
 }
 

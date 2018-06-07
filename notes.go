@@ -5,7 +5,9 @@ type Notes struct {
 }
 
 func NewNotes() *Notes {
-	return &Notes{}
+	return &Notes{
+		Notes: []*Note{},
+	}
 }
 
 func (n *Notes) Add(note *Note) *Notes {

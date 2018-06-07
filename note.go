@@ -7,12 +7,19 @@ type Note struct {
 
 func NewNote() *Note {
 	return &Note{
-		ID: newID(),
+		ID:     newID(),
+		Fields: NewFields(),
 	}
 }
 
 func (n *Note) With(fields *Fields) *Note {
 	n.Fields = fields
+	return n
+}
+
+func (n *Note) Add(field *Field) *Note {
+
+	n.Fields.Fields = append(n.Fields.Fields, field)
 	return n
 }
 

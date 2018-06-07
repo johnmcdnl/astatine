@@ -6,10 +6,12 @@ type Decks struct {
 }
 
 func NewDecks() *Decks {
-	return &Decks{}
+	return &Decks{
+		Decks: []*Deck{},
+	}
 }
 
-func (d *Decks) Add(deck *Deck)*Decks {
+func (d *Decks) Add(deck *Deck) *Decks {
 	if d.Exists(deck.ID) {
 		return d
 	}

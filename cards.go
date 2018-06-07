@@ -5,7 +5,9 @@ type Cards struct {
 }
 
 func NewCards() *Cards {
-	return &Cards{}
+	return &Cards{
+		Cards: []*Card{},
+	}
 }
 
 func (c *Cards) Add(card *Card) *Cards {

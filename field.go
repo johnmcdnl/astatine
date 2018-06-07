@@ -15,3 +15,11 @@ func NewField(key string, value string) *Field {
 func (f *Field) String() string {
 	return toString(f)
 }
+
+func (f *Field) GetValue() string {
+	if f == nil {
+		return ""
+	}
+
+	return f.Value
+}
