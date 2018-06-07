@@ -1,5 +1,9 @@
 package astatine
 
+import (
+	"math/rand"
+)
+
 type Cards struct {
 	Cards []*Card `json:"cards"`
 }
@@ -28,6 +32,20 @@ func (c *Cards) Get(id string) *Card {
 		}
 	}
 	return nil
+}
+
+func (c *Cards) Next() *Card {
+	if len(c.Cards) == 0 {
+		return nil
+	}
+	c.Shuffle()
+	return c.Cards[0]
+}
+
+func (c *Cards) Shuffle() {
+	rand.Shuffle(len(c.Cards), func(i, j int) {
+		c.Cards[i], c.Cards[j] = c.Cards[j], c.Cards[i]
+	})
 }
 
 func (c *Cards) String() string {

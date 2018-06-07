@@ -35,19 +35,19 @@ func NewLanguageCard() *Card {
 	note.Add(NewField("tgtPhrase", ""))
 	note.Add(NewField("tgtIPA", ""))
 
-
 	card.formatFunc = func() error {
+		var formatStr = `%s      ---      (%s)      ---      %s`
 		card.Question = fmt.Sprintf(
-			`What does '%s' (%s) mean in '%s'`,
+			formatStr,
 			note.Fields.Get("srcPhrase").GetValue(),
 			note.Fields.Get("srcIPA").GetValue(),
 			note.Fields.Get("srcLang").GetValue(),
 		)
 		card.Answer = fmt.Sprintf(
-			`%s    ---    (%s)    ---    %s`,
+			formatStr,
 			note.Fields.Get("tgtLang").GetValue(),
-			note.Fields.Get("tgtPhrase").GetValue(),
 			note.Fields.Get("tgtIPA").GetValue(),
+			note.Fields.Get("tgtPhrase").GetValue(),
 		)
 		return nil
 	}

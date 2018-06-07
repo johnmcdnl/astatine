@@ -34,8 +34,10 @@ func (a *API) NewRouter() {
 	a.Router.Get("/decks/{deckID}", a.GetDeck)
 
 	a.Router.Get("/decks/{deckID}/cards", a.GetCards)
+	a.Router.Get("/decks/{deckID}/cards/next", a.GetNextCard)
 	a.Router.Get("/decks/{deckID}/cards/{cardID}", a.GetCard)
 	a.Router.Get("/cards", a.GetCards)
+	a.Router.Get("/cards/next", a.GetNextCard)
 	a.Router.Get("/cards/{cardID}", a.GetCard)
 
 	a.Router.Get("/decks/{deckID}/cards/{cardID}/notes", a.GetNotes)
@@ -65,6 +67,10 @@ func (a *API) GetCards(w http.ResponseWriter, r *http.Request) {
 
 func (a *API) GetCard(w http.ResponseWriter, r *http.Request) {
 	a.Write(w, a.getCard(r).String())
+}
+
+func (a *API) GetNextCard(w http.ResponseWriter, r *http.Request) {
+	a.Write(w, a.getDeck(r).Cards.Next().String())
 }
 
 func (a *API) GetNotes(w http.ResponseWriter, r *http.Request) {
