@@ -30,6 +30,8 @@ func (a *API) NewRouter() {
 	a.Router.Use(middleware.Recoverer)
 	a.Router.Use(middleware.Timeout(5 * time.Second))
 
+	a.Router.Mount("/debug", middleware.Profiler())
+
 	a.Router.Get("/decks", a.GetDecks)
 	a.Router.Get("/decks/{deckID}", a.GetDeck)
 
