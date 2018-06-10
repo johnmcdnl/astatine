@@ -1,12 +1,13 @@
 package data
 
 import (
-	"github.com/johnmcdnl/astatine"
-	"encoding/csv"
-	"log"
-	"io/ioutil"
 	"bytes"
+	"encoding/csv"
+	"io/ioutil"
+	"log"
 	"strings"
+
+	"github.com/johnmcdnl/astatine"
 )
 
 const (
@@ -33,6 +34,7 @@ func Load(file string) *astatine.Deck {
 		deck.Add(card)
 
 	}
+	deck.Cards.Shuffle()
 	return deck
 }
 
