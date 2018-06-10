@@ -1,16 +1,17 @@
 package astatine
 
 import (
-	"github.com/sirupsen/logrus"
 	"fmt"
+
+	"github.com/sirupsen/logrus"
 )
 
 type Card struct {
-	ID         string       `json:"id"`
-	*Notes                  `json:"-"`
-	Question   string       `json:"question"`
-	Answer     string       `json:"answer"`
-	formatFunc func() error `json:"-"`
+	ID         string `json:"id"`
+	*Notes     `json:"-"`
+	Question   string `json:"question"`
+	Answer     string `json:"answer"`
+	formatFunc func() error
 }
 
 func NewCard() *Card {
