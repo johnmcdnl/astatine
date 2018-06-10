@@ -1,12 +1,14 @@
 package astatine
 
 import (
-	"github.com/go-chi/chi"
-	"net/http"
 	"fmt"
-	"github.com/sirupsen/logrus"
-	"github.com/go-chi/chi/middleware"
+	"net/http"
 	"time"
+
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/cors"
+	"github.com/sirupsen/logrus"
 )
 
 type API struct {
@@ -29,6 +31,28 @@ func (a *API) NewRouter() {
 	a.Router.Use(middleware.Logger)
 	a.Router.Use(middleware.Recoverer)
 	a.Router.Use(middleware.Timeout(5 * time.Second))
+	a.Router.Use(cors.New(cors.Options{
+		// AllowedOrigins: []string{"https://foo.com"}, // Use this to allow specific origin hosts
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{
+			http.MethodGet,
+			http.MethodPost,
+			http.MethodPut,
+			http.MethodDelete,
+			http.MethodOptions,
+		},
+		AllowedHeaders: []string{
+			"Accept",
+			"Authorization",
+			"Content-Type",
+			"X-CSRF-Token",
+		},
+		ExposedHeaders: []string{
+			"Link",
+		},
+		AllowCredentials: true,
+		MaxAge:           300,
+	}).Handler)
 
 	a.Router.Mount("/debug", middleware.Profiler())
 
