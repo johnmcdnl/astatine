@@ -88,7 +88,9 @@ func (a *API) GetDeck(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *API) GetCards(w http.ResponseWriter, r *http.Request) {
-	a.Write(w, a.getDeck(r).Cards.String())
+	cards := a.getDeck(r).Cards
+	cards.Shuffle()
+	a.Write(w, cards.String())
 }
 
 func (a *API) GetCard(w http.ResponseWriter, r *http.Request) {
